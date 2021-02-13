@@ -4,30 +4,41 @@
   "description": "API for the WIKIVESP APP",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/server.js",
-    "build": "sucrase ./src -d ./outDir --transforms imports",
-    "start": "node ./outDir/server.js",
-    "style:check": "prettier --check 'src/**/*.js'",
-    "style:fix": "prettier --write 'src/**/*.js'"
+    "start": "node dist/main/server.js",
+    "debug": "nodemon -L --watch ./dist --inspect=0.0.0.0:9222 --nolazy ./dist/main/server.js",
+    "build": "rimraf dist && tsc -p tsconfig-build.json",
+    "build:watch": "rimraf dist && tsc -p tsconfig-build.json -w",
+    "postbuild": "copyfiles -u 1 public/**/* dist/static",
+    "up": "npm run build && docker-compose up -d",
+    "down": "docker-compose down",
+    "check": "npm-check -s -u",
+    "test": "jest --passWithNoTests --runInBand --no-cache",
+    "test:unit": "npm test -- --watch -c jest-unit-config.js",
+    "test:integration": "npm test -- --watch -c jest-integration-config.js",
+    "test:staged": "npm test -- --findRelatedTests",
+    "test:ci": "npm test -- --coverage",
+    "test:coveralls": "npm run test:ci && coveralls < coverage/lcov.info"
   },
   "author": "Andre Alves",
   "license": "ISC",
   "dependencies": {
-    "aws-sdk": "^2.780.0",
+    "aws-sdk": "^2.843.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
-    "mongodb": "^3.5.0",
+    "mongodb": "^3.6.4",
     "multer": "^1.4.2",
     "multer-s3": "^2.9.0",
-    "nodemailer": "^6.4.8"
+    "nodemailer": "^6.4.18",
+    "nodemon": "^2.0.7"
   },
   "devDependencies": {
+    "@types/node": "^14.14.27",
     "git-commit-msg-linter": "^3.0.0",
     "typescript": "^4.1.5"
   },
   "engines": {
-    "node": "12.19"
+    "node": "12.x"
   }
 }
