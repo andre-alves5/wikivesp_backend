@@ -1,0 +1,8 @@
+node_modules
+
+!src/config/db_connection.js
+
+.env
+
+tmp/uploads/*
+!tmp/uploads/.gitkeep
