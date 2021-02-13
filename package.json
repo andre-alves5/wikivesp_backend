@@ -1,7 +1,7 @@
 {
   "name": "wikivesp-api",
   "version": "1.0.0",
-  "description": "Criar o arquivo package\r npm init -y",
+  "description": "API for the WIKIVESP APP",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/server.js",
@@ -24,8 +24,7 @@
     "nodemailer": "^6.4.8"
   },
   "devDependencies": {
-    "nodemon": "^2.0.2",
-    "sucrase": "^3.13.0",
+    "git-commit-msg-linter": "^3.0.0",
     "typescript": "^4.1.5"
   },
   "engines": {
