@@ -6,6 +6,7 @@ data
 !tests/data
 .vscode
 globalConfig.json
+src/main/config/env
 
 !src/config/db_connection.js
 
