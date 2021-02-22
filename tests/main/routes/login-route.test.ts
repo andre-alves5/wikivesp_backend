@@ -1,7 +1,7 @@
-import { MongoHelper } from "@/infra/db"
 import app from '@/app'
+import { MongoHelper } from '@/infra/db'
 import { hash } from 'bcrypt'
-import { Collection } from "mongodb"
+import { Collection } from 'mongodb'
 import request from 'supertest'
 
 let userCollection: Collection
@@ -24,7 +24,7 @@ describe('POST login', () => {
     const password = await hash('123456', 12)
     await userCollection.insertOne({
       name: 'User One',
-      email: "userone@users.com",
+      email: 'userone@users.com',
       password
     })
     await request(app)
@@ -34,5 +34,15 @@ describe('POST login', () => {
         password: '123456'
       })
       .expect(200)
+  })
+
+  test('Should return 401 if user is not found', async () => {
+    await request(app)
+      .post('/login')
+      .send({
+        email: 'userone@users.com',
+        password: '123456'
+      })
+      .expect(401)
   })
 })
