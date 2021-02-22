@@ -4,7 +4,7 @@ import multerUpImgUsers from "./app/middlewares/uploadImgUser";
 import multerUpArticleImage from "./app/middlewares/uploadArticleImage";
 
 import LoginController from "./app/controllers/LoginController";
-import RecuperarSenhaController from "./app/controllers/RecuperarSenhaController";
+/*import RecuperarSenhaController from "./app/controllers/RecuperarSenhaController";
 import UserController from "./app/controllers/UserController";
 import PerfilController from "./app/controllers/PerfilController";
 import PerfilImagemController from "./app/controllers/PerfilImagemController";
@@ -14,28 +14,28 @@ import ArticleDetailsController from "./app/controllers/ArticleDetailsController
 import ArticleDetailsImageController from "./app/controllers/ArticleDetailsImageController";
 
 import authMiddleware from "./app/middlewares/auth";
-
+*/
 const routes = Router();
-const uploadImgUser = multer(multerUpImgUsers);
+/*const uploadImgUser = multer(multerUpImgUsers);
 const uploadArticleImage = multer(multerUpArticleImage);
 
-routes.get("/users", UserController.index);
+//routes.get("/users", UserController.index);
 routes.get("/users/:id", UserController.show);
 routes.post("/users", UserController.store);
 routes.put("/users", authMiddleware, UserController.update);
 routes.delete("/users/:id", authMiddleware, UserController.delete);
 
-routes.get("/perfil", authMiddleware, PerfilController.show);
+//routes.get("/perfil", authMiddleware, PerfilController.show);
 routes.put("/perfil", authMiddleware, PerfilController.update);
-routes.put(
+/*routes.put(
   "/perfil-img",
   authMiddleware,
   uploadImgUser.single("file"),
   PerfilImagemController.update
-);
+); */
 
 routes.post("/login", LoginController.store);
-
+/*
 routes.post("/passwordrecovery", RecuperarSenhaController.store);
 routes.get("/passwordrecovery/:validatekey", RecuperarSenhaController.show);
 routes.put("/passwordrecovery", RecuperarSenhaController.update);
@@ -70,6 +70,6 @@ routes.put(
   authMiddleware,
   uploadArticleImage.single("file"),
   ArticleDetailsImageController.update
-);
+);*/
 
 export default routes;

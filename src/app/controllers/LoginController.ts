@@ -1,14 +1,16 @@
-import bcrypt from "bcryptjs";
+import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "../models/User";
 import configAuth from "../../config/auth";
+import { MongoHelper } from "@/infra/db";
 
 class LoginController {
   async store(req, res) {
-
+    const userCollection = await MongoHelper.getCollection('users')
     const { email, password } = req.body;
 
-    const userExiste = await User.findOne({ email: email });
+    const userExiste = await userCollection.findOne({ email: email });
+    console.log(userExiste)
 
     if (!userExiste) {
       return res.status(401).json({

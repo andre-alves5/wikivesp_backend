@@ -1,5 +1,5 @@
 import * as Yup from "yup";
-import bcrypt from "bcryptjs";
+import bcrypt from "bcrypt";
 import User from "../models/User";
 import nodemailer from "nodemailer";
 import confing from "../../config/config";
@@ -80,35 +80,35 @@ class RecuperarSenhaController {
 
       var emailHtml =
         "Prezado(a) " +
-        userExiste.name +
+        userExiste +
         "<br><br> Você solicitou uma alteração de senha.<br>Seguindo o link abaixo você poderá alterar sua senha.<br>Para continuar o processo de recuperação de sua senha, clique no link abaixo ou cole o endereço abaixo no seu navegador.<br><br>" +
         confing.urlSite +
         "/atualizar-senha-login/" +
         dados.recuperarSenha +
         "<br><br>Usuário: " +
-        userExiste.email +
+        userExiste +
         "<br><br>Se você não solicitou essa alteração, nenhuma ação é necessária. Sua senha permanecerá a mesma até que você ative este código";
 
       var emailTexto =
         "Prezado(a) " +
-        userExiste.name +
+        userExiste +
         "\n\nVocê solicitou uma alteração de senha.\nSeguindo o link abaixo você poderá alterar sua senha.\nPara continuar o processo de recuperação de sua senha, clique no link abaixo ou cole o endereço abaixo no seu navegador.\n\n" +
         confing.urlSite +
         "/atualizar-senha-login/" +
         dados.recuperarSenha +
         "\n\nUsuário: " +
-        userExiste.email +
+        userExiste +
         "\n\nSe você não solicitou essa alteração, nenhuma ação é necessária. Sua senha permanecerá a mesma até que você ative este código";
 
-      var emailSerEnviado = {
+      const emailSerEnviado = {
         from: configEmail.from,
-        to: userExiste.email,
+        to: 'name',
         subject: "Instruções para recuperar a senha",
         html: emailHtml,
         text: emailTexto,
       };
 
-      transport.sendMail(emailSerEnviado, function (error) {
+      transport.sendMail(emailSerEnviado, (error) => {
         if (error)
           return res.status(400).json({
             error: true,

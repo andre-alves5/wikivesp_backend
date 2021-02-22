@@ -1,8 +1,9 @@
 import * as Yup from "yup";
-import bcrypt from "bcryptjs";
+import bcrypt from "bcrypt";
 import User from "../models/User";
 
 class UserController {
+  /*
   async index(req, res) {
     const { page = 1 } = req.query;
     const { limit = 40 } = req.query;
@@ -23,7 +24,7 @@ class UserController {
           message: "Erro: Não foi possível executar a solicitação!",
         });
       });
-  }
+  } */
 
   async show(req, res) {
     User.findOne(
@@ -117,7 +118,7 @@ class UserController {
       });
     }
 
-    if (email != usuarioExiste.email) {
+    if (email != usuarioExiste) {
       const emailExiste = await User.findOne({ email });
       if (emailExiste) {
         return res.status(400).json({
