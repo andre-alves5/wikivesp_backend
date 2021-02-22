@@ -1,39 +1,39 @@
-import mongoose from "mongoose";
-import mongoosePaginate from "mongoose-paginate-v2";
+import mongoose from 'mongoose'
+import mongoosePaginate from 'mongoose-paginate-v2'
 
 const Articles = new mongoose.Schema(
   {
     idAutor: {
       type: String,
-      required: true,
+      required: true
     },
     autor: {
       type: String,
-      required: true,
+      required: true
     },
     titulo: {
       type: String,
-      required: true,
+      required: true
     },
     introducao: {
       type: String,
-      required: true,
+      required: true
     },
     indice: {
-      type: String,
+      type: String
     },
     bibliografia: {
-      type: String,
+      type: String
     },
     categoria: {
       type: String,
-      required: true,
-    },
+      required: true
+    }
   },
   {
-    timestamps: true,
+    timestamps: true
   }
-);
-Articles.plugin(mongoosePaginate);
+)
+Articles.plugin(mongoosePaginate)
 
-export default mongoose.model("articles", Articles);
+export default mongoose.model('articles', Articles)

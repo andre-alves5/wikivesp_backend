@@ -1,10 +1,10 @@
-import { Router } from "express";
-import multer from "multer";
+import { Router } from 'express'
+import LoginController from './app/controllers/LoginController'
+/* import multer from "multer";
 import multerUpImgUsers from "./app/middlewares/uploadImgUser";
 import multerUpArticleImage from "./app/middlewares/uploadArticleImage";
 
-import LoginController from "./app/controllers/LoginController";
-/*import RecuperarSenhaController from "./app/controllers/RecuperarSenhaController";
+import RecuperarSenhaController from "./app/controllers/RecuperarSenhaController";
 import UserController from "./app/controllers/UserController";
 import PerfilController from "./app/controllers/PerfilController";
 import PerfilImagemController from "./app/controllers/PerfilImagemController";
@@ -15,8 +15,8 @@ import ArticleDetailsImageController from "./app/controllers/ArticleDetailsImage
 
 import authMiddleware from "./app/middlewares/auth";
 */
-const routes = Router();
-/*const uploadImgUser = multer(multerUpImgUsers);
+const routes = Router()
+/* const uploadImgUser = multer(multerUpImgUsers);
 const uploadArticleImage = multer(multerUpArticleImage);
 
 //routes.get("/users", UserController.index);
@@ -34,7 +34,7 @@ routes.put("/perfil", authMiddleware, PerfilController.update);
   PerfilImagemController.update
 ); */
 
-routes.post("/login", LoginController.store);
+routes.post('/login', LoginController.store)
 /*
 routes.post("/passwordrecovery", RecuperarSenhaController.store);
 routes.get("/passwordrecovery/:validatekey", RecuperarSenhaController.show);
@@ -70,6 +70,6 @@ routes.put(
   authMiddleware,
   uploadArticleImage.single("file"),
   ArticleDetailsImageController.update
-);*/
+); */
 
-export default routes;
+export default routes

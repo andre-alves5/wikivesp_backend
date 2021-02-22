@@ -1,37 +1,37 @@
-import mongoose from "mongoose";
-import mongoosePaginate from "mongoose-paginate-v2";
+import mongoose from 'mongoose'
+import mongoosePaginate from 'mongoose-paginate-v2'
 
 const ArticleDetails = new mongoose.Schema(
   {
     idArtigo: {
       type: String,
-      required: true,
+      required: true
     },
     subTitulo: {
       type: String,
-      required: true,
+      required: true
     },
     corpoSubTitulo: {
       type: String,
-      required: true,
+      required: true
     },
     originalName: {
-      type: String,
+      type: String
     },
     key: {
-      type: String,
+      type: String
     },
     size: {
-      type: String,
+      type: String
     },
     url: {
-      type: String,
-    },
+      type: String
+    }
   },
   {
-    timestamps: true,
+    timestamps: true
   }
-);
-ArticleDetails.plugin(mongoosePaginate);
+)
+ArticleDetails.plugin(mongoosePaginate)
 
-export default mongoose.model("articledetails", ArticleDetails);
+export default mongoose.model('articledetails', ArticleDetails)

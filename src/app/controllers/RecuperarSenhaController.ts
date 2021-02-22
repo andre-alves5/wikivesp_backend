@@ -1,3 +1,4 @@
+/*
 import * as Yup from "yup";
 import bcrypt from "bcrypt";
 import User from "../models/User";
@@ -26,13 +27,6 @@ class RecuperarSenhaController {
   }
 
   async store(req, res) {
-    /*await sleep(3000);
-
-        function sleep(ms) {
-            return new Promise((resolve) => {
-                setTimeout(resolve, ms);
-            });
-        }*/
 
     const schema = Yup.object().shape({
       email: Yup.string().required(),
@@ -126,13 +120,6 @@ class RecuperarSenhaController {
   }
 
   async update(req, res) {
-    /*await sleep(3000);
-
-        function sleep(ms) {
-            return new Promise((resolve) => {
-                setTimeout(resolve, ms);
-            });
-        } */
 
     const schema = Yup.object().shape({
       _id: Yup.string().required(),
@@ -194,3 +181,4 @@ class RecuperarSenhaController {
 }
 
 export default new RecuperarSenhaController();
+*/

@@ -1,6 +1,6 @@
+/*
 import * as Yup from "yup";
 import Articles from "../models/Articles";
-/*
 class ArticlesController {
   async index(req, res) {
     const { page = 1 } = req.query;
@@ -205,4 +205,4 @@ class ArticlesController {
   }
 }
 
-export default new ArticlesController();*/
+export default new ArticlesController(); */

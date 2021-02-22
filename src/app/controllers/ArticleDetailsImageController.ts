@@ -1,9 +1,9 @@
+/*
 import ArticleDetails from "../models/ArticleDetails";
 import fs from "fs";
 import * as aws from "aws-sdk";
 
 const s3 = new aws.S3();
-
 class ArticleDetailsImageController {
   async update(req, res) {
     let imageData = {}
@@ -82,3 +82,4 @@ class ArticleDetailsImageController {
 }
 
 export default new ArticleDetailsImageController();
+*/

@@ -1,12 +1,12 @@
+/*
 import * as Yup from "yup";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "../models/User";
 import config from "../../config/config";
 import configAuth from "../../config/auth";
-
 class PerfilController {
-  /*
+
   async show(req, res) {
     User.findOne(
       { _id: req.userId },
@@ -58,7 +58,7 @@ class PerfilController {
           message: "Erro: Perfil não encontrado!",
         });
       });
-  } */
+  }
 
   async update(req, res) {
 
@@ -124,3 +124,4 @@ class PerfilController {
 }
 
 export default new PerfilController();
+*/

@@ -1,43 +1,43 @@
-import mongoose from "mongoose";
-import mongoosePaginate from "mongoose-paginate-v2";
+import mongoose from 'mongoose'
+import mongoosePaginate from 'mongoose-paginate-v2'
 
 const User = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: true,
+      required: true
     },
     email: {
       type: String,
-      required: true,
+      required: true
     },
     polo: {
-      type: String,
+      type: String
     },
     turma: {
-      type: String,
+      type: String
     },
     curso: {
-      type: String,
+      type: String
     },
     password: {
       type: String,
-      required: true,
+      required: true
     },
     recuperarSenha: {
-      type: String,
+      type: String
     },
     originalName: {
-      type: String,
+      type: String
     },
     fileName: {
-      type: String,
-    },
+      type: String
+    }
   },
   {
-    timestamps: true,
+    timestamps: true
   }
-);
-User.plugin(mongoosePaginate);
+)
+User.plugin(mongoosePaginate)
 
-export default mongoose.model("user", User);
+export default mongoose.model('user', User)

@@ -1,7 +1,7 @@
+/*
 import * as Yup from "yup";
 import config from "../../config/config";
 import ArticleDetails from "../models/ArticleDetails";
-
 class ArticleDetailsController {
   async index(req, res) {
     const { page = 1 } = req.query;
@@ -32,7 +32,7 @@ class ArticleDetailsController {
     )
       .then((articledetail) => {
         if (articledetail.fileName) {
-          var url = config.url + "/files/article/" + articledetail.fileName;
+          const url = config.url + "/files/article/" + articledetail.fileName;
         }
         const {
           _id,
@@ -95,7 +95,7 @@ class ArticleDetailsController {
       });
     }
 
-    var dados = req.body;
+    const dados = req.body;
 
     const articledetail = await ArticleDetails.create(dados, (err) => {
       if (err)
@@ -200,3 +200,4 @@ class ArticleDetailsController {
 }
 
 export default new ArticleDetailsController();
+*/
