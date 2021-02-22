@@ -7,14 +7,6 @@ import configEmail from "../../config/email";
 
 class RecuperarSenhaController {
   async show(req, res) {
-    /*await sleep(3000);
-
-        function sleep(ms) {
-            return new Promise((resolve) => {
-                setTimeout(resolve, ms);
-            });
-        }*/
-
     User.findOne({ recuperarSenha: req.params.recuperarSenha }, "_id")
       .then((user) => {
         if (user._id) {

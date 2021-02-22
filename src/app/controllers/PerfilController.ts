@@ -60,13 +60,6 @@ class PerfilController {
   }
 
   async update(req, res) {
-    /*await sleep(3000);
-
-        function sleep(ms) {
-            return new Promise((resolve) => {
-                setTimeout(resolve, ms);
-            });
-        }*/
 
     const schema = Yup.object().shape({
       name: Yup.string(),

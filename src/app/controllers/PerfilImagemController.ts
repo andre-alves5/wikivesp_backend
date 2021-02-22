@@ -3,14 +3,6 @@ import fs from "fs";
 
 class PerfilImagemController {
   async update(req, res) {
-    /*await sleep(3000);
-
-        function sleep(ms) {
-            return new Promise((resolve) => {
-                setTimeout(resolve, ms);
-            });
-        }*/
-
     if (!req.file) {
       return res.status(400).json({
         error: true,

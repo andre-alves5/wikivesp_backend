@@ -15,7 +15,7 @@ import ArticleDetailsImageController from "./app/controllers/ArticleDetailsImage
 
 import authMiddleware from "./app/middlewares/auth";
 
-const routes = new Router();
+const routes = Router();
 const uploadImgUser = multer(multerUpImgUsers);
 const uploadArticleImage = multer(multerUpArticleImage);
 

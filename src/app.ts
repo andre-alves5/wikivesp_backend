@@ -2,11 +2,14 @@ import express from "express";
 import routes from "./routes";
 import cors from "cors";
 import path from "path";
-require("dotenv").config();
+import dotenv from 'dotenv'
 
 import "./config/db_connection";
 
+dotenv.config()
+
 class App {
+  app: any;
   constructor() {
     this.app = express();
     this.middlewares();

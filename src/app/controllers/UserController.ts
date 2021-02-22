@@ -4,14 +4,6 @@ import User from "../models/User";
 
 class UserController {
   async index(req, res) {
-    /*await sleep(3000);
-
-        function sleep(ms) {
-            return new Promise((resolve) => {
-                setTimeout(resolve, ms);
-            });
-        }*/
-
     const { page = 1 } = req.query;
     const { limit = 40 } = req.query;
     await User.paginate(
@@ -34,14 +26,6 @@ class UserController {
   }
 
   async show(req, res) {
-    /*await sleep(3000);
-
-        function sleep(ms) {
-            return new Promise((resolve) => {
-                setTimeout(resolve, ms);
-            });
-        }*/
-
     User.findOne(
       { _id: req.params.id },
       "_id name email createdAt updatedAt originalName fileName"
@@ -76,14 +60,6 @@ class UserController {
       });
     }
 
-    /*await sleep(3000);
-
-        function sleep(ms) {
-            return new Promise((resolve) => {
-                setTimeout(resolve, ms);
-            });
-        }*/
-
     const emailExiste = await User.findOne({ email: req.body.email });
     if (emailExiste) {
       return res.status(400).json({
@@ -113,13 +89,6 @@ class UserController {
   }
 
   async update(req, res) {
-    /*await sleep(5000);
-
-        function sleep(ms) {
-            return new Promise((resolve) => {
-                setTimeout(resolve, ms);
-            });
-        }*/
 
     const schema = Yup.object().shape({
       _id: Yup.string().required(),
@@ -180,14 +149,6 @@ class UserController {
   }
 
   async delete(req, res) {
-    /*await sleep(3000);
-
-        function sleep(ms) {
-            return new Promise((resolve) => {
-                setTimeout(resolve, ms);
-            });
-        }  */
-
     const usuarioExiste = await User.findOne({ _id: req.params.id });
 
     if (!usuarioExiste) {

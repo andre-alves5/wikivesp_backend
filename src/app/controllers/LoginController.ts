@@ -5,13 +5,6 @@ import configAuth from "../../config/auth";
 
 class LoginController {
   async store(req, res) {
-    /*await sleep(3000);
-
-        function sleep(ms) {
-            return new Promise((resolve) => {
-                setTimeout(resolve, ms);
-            });
-        }*/
 
     const { email, password } = req.body;
 

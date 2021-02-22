@@ -6,7 +6,7 @@ const s3 = new aws.S3();
 
 class ArticleDetailsImageController {
   async update(req, res) {
-    console.log(req.file);
+    let imageData = {}
     if (!req.file) {
       return res.status(400).json({
         error: true,
@@ -14,15 +14,15 @@ class ArticleDetailsImageController {
         message: "Error: Selecione uma imagem válida JPEG ou PNG!",
       });
     }
-    if(process.env.STORAGE_TYPE === "s3") {
-      var imageData = {
+    if (process.env.STORAGE_TYPE === "s3") {
+      imageData = {
         originalName: req.file.originalname,
         key: req.file.key,
         url: req.file.location
       };
     } else {
-        var url = req.file.destination + "/" + req.file.filename;
-       var imageData = {
+      var url = req.file.destination + "/" + req.file.filename;
+      imageData = {
         originalName: req.file.originalname,
         key: req.file.filename,
         url
@@ -40,7 +40,7 @@ class ArticleDetailsImageController {
             })
             .promise()
             .then((response) => {
-              console.log(response.status);
+              console.log(response);
             })
             .catch((response) => {
               console.log(response.status);
