@@ -2,6 +2,7 @@ import { LoginController } from '@/app/controllers/LoginController'
 import { BcryptAdapter } from '@/infra/cryptography'
 import { MongoHelper } from '@/infra/db'
 import { Collection } from 'mongodb'
+import { unauthorized } from '@/presentation/helpers'
 
 let userCollection: Collection
 
@@ -46,5 +47,15 @@ describe('Login Controller', () => {
       email: 'any_email@mail.com',
       password: 'any_password'
     })
+  })
+
+  test('Should return 401 if invalid email is provided', async () => {
+    const { sut } = makeSut()
+    jest.spyOn(sut, 'handle').mockReturnValueOnce(Promise.resolve(unauthorized()))
+    const httpResponse = await sut.handle({
+      email: 'invalid_email',
+      password: 'valid_password'
+    })
+    expect(httpResponse).toEqual(unauthorized())
   })
 })

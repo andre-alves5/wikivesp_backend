@@ -9,7 +9,7 @@ export class LoginController implements Controller {
     const userCollection = await MongoHelper.getCollection('users')
     const { email, password } = request
 
-    const account = await userCollection.findOne({ email: email })
+    const account = await userCollection.findOne({ email })
 
     if (!account) {
       return unauthorized()
