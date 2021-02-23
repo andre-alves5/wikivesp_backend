@@ -5,6 +5,25 @@ import { Collection } from 'mongodb'
 
 let userCollection: Collection
 
+const mockRequest = (): LoginController.Request => ({
+  email: 'any_email@mail.com',
+  password: 'any_password'
+})
+
+type SutTypes = {
+  sut: LoginController
+  bcryptAdapter: BcryptAdapter
+}
+
+const makeSut = (): SutTypes => {
+  const bcryptAdapter = new BcryptAdapter()
+  const sut = new LoginController(bcryptAdapter)
+  return {
+    sut,
+    bcryptAdapter
+  }
+}
+
 describe('Login Controller', () => {
   beforeAll(async () => {
     await MongoHelper.connect(process.env.MONGO_URL)
@@ -20,14 +39,9 @@ describe('Login Controller', () => {
   })
 
   test('Should call controller with correct values', async () => {
-    const bcryptAdapter = new BcryptAdapter()
-    const sut = new LoginController(bcryptAdapter)
+    const { sut } = makeSut()
     const handleSpy = jest.spyOn(sut, 'handle')
-    const request = {
-      email: 'any_email@mail.com',
-      password: 'any_password'
-    }
-    await sut.handle(request)
+    await sut.handle(mockRequest())
     expect(handleSpy).toHaveBeenCalledWith({
       email: 'any_email@mail.com',
       password: 'any_password'
