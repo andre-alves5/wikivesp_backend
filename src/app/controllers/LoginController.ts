@@ -1,9 +1,10 @@
+import { BcryptAdapter } from '@/infra/cryptography'
 import { MongoHelper } from '@/infra/db'
 import { success, unauthorized } from '@/presentation/helpers/http-helper'
 import { Controller, HttpResponse } from '@/presentation/protocols'
-import { compare } from 'bcrypt'
 
-export default class LoginController implements Controller {
+export class LoginController implements Controller {
+  constructor(private readonly bcryptAdapter: BcryptAdapter) { }
   async handle(request: LoginController.Request): Promise<HttpResponse> {
     const userCollection = await MongoHelper.getCollection('users')
     const { email, password } = request
@@ -14,7 +15,7 @@ export default class LoginController implements Controller {
       return unauthorized()
     }
 
-    if (!(await compare(password, account.password))) {
+    if (!(await this.bcryptAdapter.compare(password, account.password))) {
       return unauthorized()
     }
 
