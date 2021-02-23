@@ -1,23 +1,7 @@
 import { MongoHelper } from '@/infra/db'
+import { success, unauthorized } from '@/presentation/helpers/http-helper'
 import { Controller, HttpResponse } from '@/presentation/protocols'
 import { compare } from 'bcrypt'
-
-class UnauthorizedError extends Error {
-  constructor() {
-    super('Unauthorized')
-    this.name = 'UnauthorizedError'
-  }
-}
-
-const unauthorized = (): HttpResponse => ({
-  statusCode: 401,
-  body: new UnauthorizedError()
-})
-
-const success = (data: any): HttpResponse => ({
-  statusCode: 200,
-  body: data
-})
 
 export default class LoginController implements Controller {
   async handle(request: LoginController.Request): Promise<HttpResponse> {
