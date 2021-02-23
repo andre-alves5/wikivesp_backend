@@ -4,7 +4,7 @@
   "description": "Criar o arquivo package\r npm init -y",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node src/server.ts",
+    "dev": "ts-node src/main/server.ts",
     "build": "tsc -p tsconfig-build.json",
     "start": "node dist/server.js",
     "test": "jest --passWithNoTests --detectOpenHandles --runInBand --no-cache",

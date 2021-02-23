@@ -1,42 +1,54 @@
-import bcrypt from 'bcrypt'
-import jwt from 'jsonwebtoken'
-import configAuth from '../../config/auth'
+import { compare } from 'bcrypt'
 import { MongoHelper } from '@/infra/db'
 
-class LoginController {
-  async store (req, res) {
-    const userCollection = await MongoHelper.getCollection('users')
-    const { email, password } = req.body
-
-    const userExiste = await userCollection.findOne({ email: email })
-
-    if (!userExiste) {
-      return res.status(401).json({
-        error: true,
-        code: 110,
-        message: 'Erro: Usuário não encontrado!'
-      })
-    }
-
-    if (!(await bcrypt.compare(password, userExiste.password))) {
-      return res.status(401).json({
-        error: true,
-        code: 111,
-        message: 'Erro: Senha inválida!'
-      })
-    }
-
-    return res.json({
-      user: {
-        id: userExiste._id,
-        name: userExiste.name,
-        email
-      },
-      token: jwt.sign({ id: userExiste._id }, configAuth.secret, {
-        expiresIn: configAuth.expiresIn
-      })
-    })
+class UnauthorizedError extends Error {
+  constructor() {
+    super('Unauthorized')
+    this.name = 'UnauthorizedError'
   }
 }
 
-export default new LoginController()
+const unauthorized = (): HttpResponse => ({
+  statusCode: 401,
+  body: new UnauthorizedError()
+})
+
+const success = (data: any): HttpResponse => ({
+  statusCode: 200,
+  body: data
+})
+
+export namespace LoginController {
+  export type Request = {
+    email: string
+    password: string
+  }
+}
+
+type HttpResponse = {
+  statusCode: number
+  body: any
+}
+
+export interface Controller<T = any> {
+  handle: (request: T) => Promise<HttpResponse>
+}
+
+export default class LoginController implements Controller {
+  async handle(request: LoginController.Request): Promise<HttpResponse> {
+    const userCollection = await MongoHelper.getCollection('users')
+    const { email, password } = request
+
+    const account = await userCollection.findOne({ email: email })
+
+    if (!account) {
+      return unauthorized()
+    }
+
+    if (!(await compare(password, account.password))) {
+      return unauthorized()
+    }
+
+    return success(account)
+  }
+}
