@@ -25,4 +25,10 @@ describe('Bcrypt Adapter', () => {
     const isValid = await sut.compare('any_plainText', 'any_digest')
     expect(isValid).toBe(false)
   })
+
+  test('Should return true when compare succeeds', async () => {
+    const sut = makeSut()
+    const isValid = await sut.compare('any_plainText', 'any_digest')
+    expect(isValid).toBe(true)
+  })
 })
