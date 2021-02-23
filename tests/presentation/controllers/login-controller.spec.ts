@@ -58,4 +58,14 @@ describe('Login Controller', () => {
     })
     expect(httpResponse).toEqual(unauthorized())
   })
+
+  test('Should return 401 if wrong password is provided', async () => {
+    const { sut, bcryptAdapter } = makeSut()
+    jest.spyOn(bcryptAdapter, 'compare').mockResolvedValueOnce(false)
+    const httpResponse = await sut.handle({
+      email: 'valid_email',
+      password: 'invalid_password'
+    })
+    expect(httpResponse).toEqual(unauthorized())
+  })
 })
