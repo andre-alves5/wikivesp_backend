@@ -1,5 +1,6 @@
-import { compare } from 'bcrypt'
 import { MongoHelper } from '@/infra/db'
+import { Controller, HttpResponse } from '@/presentation/protocols'
+import { compare } from 'bcrypt'
 
 class UnauthorizedError extends Error {
   constructor() {
@@ -18,22 +19,6 @@ const success = (data: any): HttpResponse => ({
   body: data
 })
 
-export namespace LoginController {
-  export type Request = {
-    email: string
-    password: string
-  }
-}
-
-type HttpResponse = {
-  statusCode: number
-  body: any
-}
-
-export interface Controller<T = any> {
-  handle: (request: T) => Promise<HttpResponse>
-}
-
 export default class LoginController implements Controller {
   async handle(request: LoginController.Request): Promise<HttpResponse> {
     const userCollection = await MongoHelper.getCollection('users')
@@ -50,5 +35,12 @@ export default class LoginController implements Controller {
     }
 
     return success(account)
+  }
+}
+
+export namespace LoginController {
+  export type Request = {
+    email: string
+    password: string
   }
 }
