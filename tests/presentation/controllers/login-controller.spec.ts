@@ -1,5 +1,4 @@
 import { LoginController } from '@/presentation/controllers'
-import { BcryptAdapter } from '@/infra/cryptography'
 import { MongoHelper } from '@/infra/db'
 import { Collection } from 'mongodb'
 import { serverError, unauthorized } from '@/presentation/helpers'
