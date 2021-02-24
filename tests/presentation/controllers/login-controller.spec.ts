@@ -1,8 +1,10 @@
-import { LoginController } from '@/app/controllers/LoginController'
+import { LoginController } from '@/presentation/controllers'
 import { BcryptAdapter } from '@/infra/cryptography'
 import { MongoHelper } from '@/infra/db'
 import { Collection } from 'mongodb'
-import { unauthorized } from '@/presentation/helpers'
+import { serverError, unauthorized } from '@/presentation/helpers'
+import { throwError } from '@/tests/domain/mocks/test-helpers'
+import { AuthenticationSpy } from '../mocks/mock-account'
 
 let userCollection: Collection
 
@@ -13,15 +15,15 @@ const mockRequest = (): LoginController.Request => ({
 
 type SutTypes = {
   sut: LoginController
-  bcryptAdapter: BcryptAdapter
+  authenticationSpy: AuthenticationSpy
 }
 
 const makeSut = (): SutTypes => {
-  const bcryptAdapter = new BcryptAdapter()
-  const sut = new LoginController(bcryptAdapter)
+  const authenticationSpy = new AuthenticationSpy()
+  const sut = new LoginController(authenticationSpy)
   return {
     sut,
-    bcryptAdapter
+    authenticationSpy
   }
 }
 
@@ -60,12 +62,16 @@ describe('Login Controller', () => {
   })
 
   test('Should return 401 if wrong password is provided', async () => {
-    const { sut, bcryptAdapter } = makeSut()
-    jest.spyOn(bcryptAdapter, 'compare').mockResolvedValueOnce(false)
-    const httpResponse = await sut.handle({
-      email: 'valid_email',
-      password: 'invalid_password'
-    })
+    const { sut, authenticationSpy } = makeSut()
+    authenticationSpy.result = null
+    const httpResponse = await sut.handle(mockRequest())
     expect(httpResponse).toEqual(unauthorized())
+  })
+
+  test('Should return 500 if LoginController throws', async () => {
+    const { sut, authenticationSpy } = makeSut()
+    jest.spyOn(authenticationSpy, 'auth').mockImplementationOnce(throwError)
+    const httpResponse = await sut.handle(mockRequest())
+    expect(httpResponse).toEqual(serverError(new Error()))
   })
 })
