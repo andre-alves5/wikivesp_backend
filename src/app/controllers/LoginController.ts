@@ -4,9 +4,9 @@ import { serverError, success, unauthorized } from '@/presentation/helpers/http-
 import { Controller, HttpResponse } from '@/presentation/protocols'
 
 export class LoginController implements Controller {
-  constructor(private readonly bcryptAdapter: BcryptAdapter) { }
+  constructor (private readonly bcryptAdapter: BcryptAdapter) { }
 
-  async handle(request: LoginController.Request): Promise<HttpResponse> {
+  async handle (request: LoginController.Request): Promise<HttpResponse> {
     try {
       const { email, password } = request
       const userCollection = await MongoHelper.getCollection('users')

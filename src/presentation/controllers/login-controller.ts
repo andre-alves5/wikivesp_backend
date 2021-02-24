@@ -1,11 +1,11 @@
-import { Authentication } from "@/domain/usecases";
-import { serverError, success, unauthorized } from "../helpers";
-import { Controller, HttpResponse } from "../protocols";
+import { Authentication } from '@/domain/usecases'
+import { serverError, success, unauthorized } from '../helpers'
+import { Controller, HttpResponse } from '../protocols'
 
 export class LoginController implements Controller {
-  constructor(private readonly authentication: Authentication) { }
+  constructor (private readonly authentication: Authentication) { }
 
-  async handle(request: LoginController.Request): Promise<HttpResponse> {
+  async handle (request: LoginController.Request): Promise<HttpResponse> {
     try {
       const authenticationModel = await this.authentication.auth(request)
       if (!authenticationModel) {

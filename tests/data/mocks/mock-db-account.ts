@@ -1,4 +1,4 @@
-import { LoadUserByEmailRepository } from "@/data/protocols"
+import { LoadUserByEmailRepository } from '@/data/protocols'
 
 export class LoadUserByEmailRepositorySpy implements LoadUserByEmailRepository {
   email: string
@@ -8,7 +8,7 @@ export class LoadUserByEmailRepositorySpy implements LoadUserByEmailRepository {
     password: 'any_password'
   }
 
-  async loadByEmail(email: string): Promise<LoadUserByEmailRepository.Result> {
+  async loadByEmail (email: string): Promise<LoadUserByEmailRepository.Result> {
     this.email = email
     return this.result
   }
