@@ -2,6 +2,8 @@ node_modules
 dist
 coverage
 data
+config
+!src/main/config
 !src/data
 !tests/data
 .vscode
