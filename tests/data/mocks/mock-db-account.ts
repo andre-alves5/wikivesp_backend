@@ -1,11 +1,12 @@
 import { LoadUserByEmailRepository } from '@/data/protocols'
+import faker from 'faker'
 
 export class LoadUserByEmailRepositorySpy implements LoadUserByEmailRepository {
   email: string
   result = {
-    id: 'any_id',
-    name: 'any_name',
-    password: 'any_password'
+    id: faker.random.uuid(),
+    name: faker.name.findName(),
+    password: faker.internet.password()
   }
 
   async loadByEmail (email: string): Promise<LoadUserByEmailRepository.Result> {
