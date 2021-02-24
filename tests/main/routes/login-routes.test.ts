@@ -35,4 +35,14 @@ describe('POST login', () => {
       })
       .expect(200)
   })
+
+  test('Should return 401 if user is not found', async () => {
+    await request(app)
+      .post('/api/login')
+      .send({
+        email: 'userone@users.com',
+        password: '123456'
+      })
+      .expect(401)
+  })
 })
