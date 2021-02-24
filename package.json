@@ -1,6 +1,6 @@
 {
   "name": "wikivesp-api",
-  "version": "1.0.0",
+  "version": "2.0.1",
   "description": "API do WikiVesp APP",
   "scripts": {
     "dev": "cross-env NODE_ENV=development ts-node --project ./tsconfig.json src/main/server.ts",
