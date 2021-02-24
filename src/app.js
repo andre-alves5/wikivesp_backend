@@ -1,3 +1,4 @@
+/*
 import express, { Express } from 'express'
 import routes from './routes'
 import cors from 'cors'
@@ -41,3 +42,4 @@ class App {
 }
 
 export default new App().app
+*/
