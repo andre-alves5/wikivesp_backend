@@ -1,11 +1,11 @@
-import { CheckAccountByEmailRepository, LoadUserByEmailRepository } from '@/data/protocols'
+import { AddAccountRepository, CheckAccountByEmailRepository, LoadUserByEmailRepository } from '@/data/protocols'
 import { MongoHelper } from './mongo-helper'
 
-export class UserMongoRepository implements LoadUserByEmailRepository, CheckAccountByEmailRepository {
-  async loadByEmail (email: string): Promise<LoadUserByEmailRepository.Result> {
+export class UserMongoRepository implements AddAccountRepository, LoadUserByEmailRepository, CheckAccountByEmailRepository {
+  async add (data: AddAccountRepository.Params): Promise<AddAccountRepository.Result> {
     const userCollection = await MongoHelper.getCollection('users')
-    const user = await userCollection.findOne({ email })
-    return user && MongoHelper.map(user)
+    const result = await userCollection.insertOne(data)
+    return result.ops[0] !== null
   }
 
   async checkByEmail (email: string): Promise<CheckAccountByEmailRepository.Result> {
@@ -14,5 +14,11 @@ export class UserMongoRepository implements LoadUserByEmailRepository, CheckAcco
       email
     })
     return account !== null
+  }
+
+  async loadByEmail (email: string): Promise<LoadUserByEmailRepository.Result> {
+    const userCollection = await MongoHelper.getCollection('users')
+    const user = await userCollection.findOne({ email })
+    return user && MongoHelper.map(user)
   }
 }
