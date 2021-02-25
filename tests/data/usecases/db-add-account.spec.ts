@@ -68,4 +68,11 @@ describe('DbAddAccount UseCase', () => {
     await sut.add(addAccountParams)
     expect(checkAccountByEmailRepositorySpy.email).toBe(addAccountParams.email)
   })
+
+  test('Should return false if CheckAccountByEmailRepository returns true', async () => {
+    const { sut, checkAccountByEmailRepositorySpy } = makeSut()
+    checkAccountByEmailRepositorySpy.result = true
+    const isValid = await sut.add(mockAddAccountParams())
+    expect(isValid).toBe(false)
+  })
 })
