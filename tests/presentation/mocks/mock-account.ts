@@ -14,6 +14,7 @@ export class AddAccountSpy implements AddAccount {
 export class AuthenticationSpy implements Authentication {
   params: Authentication.Params
   result = {
+    accessToken: faker.random.uuid(),
     name: faker.name.findName()
   }
 
