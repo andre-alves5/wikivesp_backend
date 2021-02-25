@@ -1,6 +1,6 @@
 import { SignUpController } from '@/presentation/controllers'
 import { EmailInUseError, MissingParamError, ServerError } from '@/presentation/errors'
-import { badRequest, forbidden, serverError } from '@/presentation/helpers'
+import { badRequest, forbidden, serverError, success } from '@/presentation/helpers'
 import { AddAccountSpy, AuthenticationSpy, ValidationSpy } from '@/tests/presentation/mocks'
 import { throwError } from '@/tests/domain/mocks'
 import faker from 'faker'
@@ -90,5 +90,11 @@ describe('SignUp Controller', () => {
     jest.spyOn(authenticationSpy, 'auth').mockImplementationOnce(throwError)
     const httpResponse = await sut.handle(mockRequest())
     expect(httpResponse).toEqual(serverError(new Error()))
+  })
+
+  test('Should return 200 if valid data is provided', async () => {
+    const { sut, authenticationSpy } = makeSut()
+    const httpResponse = await sut.handle(mockRequest())
+    expect(httpResponse).toEqual(success(authenticationSpy.result))
   })
 })
