@@ -4,7 +4,8 @@ import { DbAuthentication } from '@/data/usecases'
 import { Authentication } from '@/domain/usecases'
 
 export const makeDbAuthentication = (): Authentication => {
-  const bcryptAdapter = new BcryptAdapter()
+  const salt = 12
+  const bcryptAdapter = new BcryptAdapter(salt)
   const userMongoRepository = new UserMongoRepository()
   return new DbAuthentication(userMongoRepository, bcryptAdapter)
 }
