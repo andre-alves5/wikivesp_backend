@@ -1,6 +1,7 @@
 import { SignUpController } from '@/presentation/controllers'
-import { EmailInUseError } from '@/presentation/errors'
-import { forbidden } from '@/presentation/helpers'
+import { EmailInUseError, ServerError } from '@/presentation/errors'
+import { forbidden, serverError } from '@/presentation/helpers'
+import { throwError } from '@/tests/domain/mocks'
 import { AddAccountSpy } from '@/tests/presentation/mocks'
 import faker from 'faker'
 
@@ -45,5 +46,12 @@ describe('SignUp Controller', () => {
     addAccountSpy.result = false
     const httpResponse = await sut.handle(mockRequest())
     expect(httpResponse).toEqual(forbidden(new EmailInUseError()))
+  })
+
+  test('Should return 500 if AddAccount throws', async () => {
+    const { sut, addAccountSpy } = makeSut()
+    jest.spyOn(addAccountSpy, 'add').mockImplementationOnce(throwError)
+    const httpResponse = await sut.handle(mockRequest())
+    expect(httpResponse).toEqual(serverError(new ServerError(null)))
   })
 })
