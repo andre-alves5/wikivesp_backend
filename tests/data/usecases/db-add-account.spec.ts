@@ -75,4 +75,10 @@ describe('DbAddAccount UseCase', () => {
     const isValid = await sut.add(mockAddAccountParams())
     expect(isValid).toBe(false)
   })
+
+  test('Should return true on success', async () => {
+    const { sut } = makeSut()
+    const isValid = await sut.add(mockAddAccountParams())
+    expect(isValid).toBe(true)
+  })
 })
