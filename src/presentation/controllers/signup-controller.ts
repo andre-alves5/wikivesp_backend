@@ -1,7 +1,7 @@
+import { EmailInUseError } from '@/presentation/errors'
+import { badRequest, forbidden, serverError } from '@/presentation/helpers'
+import { Controller, HttpResponse, Validation } from '@/presentation/protocols'
 import { AddAccount } from '@/domain/usecases'
-import { EmailInUseError } from '../errors'
-import { forbidden, serverError } from '../helpers'
-import { Controller, HttpResponse, Validation } from '../protocols'
 
 export class SignUpController implements Controller {
   constructor (
@@ -11,7 +11,10 @@ export class SignUpController implements Controller {
 
   async handle (request: SignUpController.Request): Promise<HttpResponse> {
     try {
-      this.validation.validate(request)
+      const error = this.validation.validate(request)
+      if (error) {
+        return badRequest(error)
+      }
       const { name, email, password } = request
       const isValid = await this.addAccount.add({
         name,
