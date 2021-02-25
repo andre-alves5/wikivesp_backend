@@ -1,7 +1,8 @@
 import { UserMongoRepository, MongoHelper } from '@/infra/db'
+import { mockAddAccountParams } from '@/tests/domain/mocks'
 
-import { Collection } from 'mongodb'
 import faker from 'faker'
+import { Collection } from 'mongodb'
 
 const makeSut = (): UserMongoRepository => {
   return new UserMongoRepository()
@@ -43,6 +44,16 @@ describe('UserMongoRepository', () => {
       const sut = makeSut()
       const user = await sut.loadByEmail(faker.internet.email())
       expect(user).toBeFalsy()
+    })
+  })
+
+  describe('checkByEmail()', () => {
+    test('Should return true if email is already exists', async () => {
+      const sut = makeSut()
+      const addUserParams = mockAddAccountParams()
+      await userCollection.insertOne(addUserParams)
+      const alreadyExists = await sut.checkByEmail(faker.internet.email())
+      expect(alreadyExists).toBe(false)
     })
   })
 })
