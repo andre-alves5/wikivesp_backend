@@ -62,4 +62,13 @@ describe('UserMongoRepository', () => {
       expect(exists).toBe(false)
     })
   })
+
+  describe('add()', () => {
+    test('Should return an account on success', async () => {
+      const sut = makeSut()
+      const addAccountParams = mockAddAccountParams()
+      const isValid = await sut.add(addAccountParams)
+      expect(isValid).toBe(true)
+    })
+  })
 })
