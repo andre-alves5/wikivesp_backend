@@ -12,13 +12,25 @@ export class UserMongoRepository implements AddAccountRepository, LoadUserByEmai
     const userCollection = await MongoHelper.getCollection('users')
     const account = await userCollection.findOne({
       email
+    }, {
+      projection: {
+        _id: 1
+      }
     })
     return account !== null
   }
 
   async loadByEmail (email: string): Promise<LoadUserByEmailRepository.Result> {
     const userCollection = await MongoHelper.getCollection('users')
-    const user = await userCollection.findOne({ email })
+    const user = await userCollection.findOne({
+      email
+    }, {
+      projection: {
+        _id: 1,
+        name: 1,
+        password: 1
+      }
+    })
     return user && MongoHelper.map(user)
   }
 
