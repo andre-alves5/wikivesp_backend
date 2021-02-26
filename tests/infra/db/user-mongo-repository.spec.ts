@@ -71,4 +71,18 @@ describe('UserMongoRepository', () => {
       expect(isValid).toBe(true)
     })
   })
+
+  describe('updateAccessToken()', () => {
+    test('Should update the account accessToken on success', async () => {
+      const sut = makeSut()
+      const res = await userCollection.insertOne(mockAddAccountParams())
+      const fakeAccount = res.ops[0]
+      expect(fakeAccount.accessToken).toBeFalsy()
+      const accessToken = faker.random.uuid()
+      await sut.updateAccessToken(fakeAccount._id, accessToken)
+      const account = await userCollection.findOne({ _id: fakeAccount._id })
+      expect(account).toBeTruthy()
+      expect(account.accessToken).toBe(accessToken)
+    })
+  })
 })
