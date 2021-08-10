@@ -1,6 +1,6 @@
 import * as Yup from "yup";
-import config from "../../config/config.js";
 import ArticleDetails from "../models/ArticleDetails.js";
+import env from "../../config/env.js";
 
 class ArticleDetailsController {
   async index(req, res) {
@@ -32,7 +32,7 @@ class ArticleDetailsController {
     )
       .then((articledetail) => {
         if (articledetail.fileName) {
-          var url = config.url + "/files/article/" + articledetail.fileName;
+          var url = env.url + "/files/article/" + articledetail.fileName;
         }
         const {
           _id,

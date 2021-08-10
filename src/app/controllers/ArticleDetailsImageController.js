@@ -10,48 +10,23 @@ class ArticleDetailsImageController {
         message: "Error: Selecione uma imagem válida JPEG ou PNG!",
       });
     }
-    if (process.env.STORAGE_TYPE === "s3") {
-      var imageData = {
-        originalName: req.file.originalname,
-        key: req.file.key,
-        url: req.file.location,
-      };
-    } else {
-      var url = req.file.destination + "/" + req.file.filename;
-      var imageData = {
-        originalName: req.file.originalname,
-        key: req.file.filename,
-        url,
-      };
-    }
+    var url = req.file.destination + "/" + req.file.filename;
+    var imageData = {
+      originalName: req.file.originalname,
+      key: req.file.filename,
+      url,
+    };
 
     await ArticleDetails.findOne({ _id: req.params.id }, "_id key url")
       .then((articledetails) => {
         req.articleImageData = articledetails.key;
-        if (process.env.STORAGE_TYPE === "s3") {
-          return s3
-            .deleteObject({
-              Bucket: process.env.BUCKET_NAME,
-              Key: articledetails.key,
-            })
-            .promise()
-            .then((response) => {
-              console.log(response.status);
-            })
-            .catch((response) => {
-              console.log(response.status);
-            });
-        } else {
-          const oldImage = req.file.destination + "/" + req.articleImageData;
+        const oldImage = req.file.destination + "/" + req.articleImageData;
 
-          fs.access(oldImage, (err) => {
-            if (!err) {
-              fs.unlink(oldImage, (err) => {
-                //Msg de imagem excluida sucesso
-              });
-            }
-          });
-        }
+        fs.access(oldImage, (err) => {
+          if (!err) {
+            fs.unlink(oldImage, (err) => {});
+          }
+        });
       })
       .catch((err) => {
         return res.status(400).json({

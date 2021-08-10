@@ -2,7 +2,7 @@ import * as Yup from "yup";
 import bcrypt from "bcryptjs";
 import User from "../models/User.js";
 import nodemailer from "nodemailer";
-import config from "../../config/config.js";
+import env from "../../config/env.js";
 
 class RecuperarSenhaController {
   async show(req, res) {
@@ -25,14 +25,6 @@ class RecuperarSenhaController {
   }
 
   async store(req, res) {
-    /*await sleep(3000);
-
-        function sleep(ms) {
-            return new Promise((resolve) => {
-                setTimeout(resolve, ms);
-            });
-        }*/
-
     const schema = Yup.object().shape({
       email: Yup.string().required(),
     });
@@ -81,7 +73,7 @@ class RecuperarSenhaController {
         "Prezado(a) " +
         userExiste.name +
         "<br><br> Você solicitou uma alteração de senha.<br>Seguindo o link abaixo você poderá alterar sua senha.<br>Para continuar o processo de recuperação de sua senha, clique no link abaixo ou cole o endereço abaixo no seu navegador.<br><br>" +
-        config.urlSite +
+        env.urlSite +
         "/atualizar-senha-login/" +
         dados.recuperarSenha +
         "<br><br>Usuário: " +
@@ -92,7 +84,7 @@ class RecuperarSenhaController {
         "Prezado(a) " +
         userExiste.name +
         "\n\nVocê solicitou uma alteração de senha.\nSeguindo o link abaixo você poderá alterar sua senha.\nPara continuar o processo de recuperação de sua senha, clique no link abaixo ou cole o endereço abaixo no seu navegador.\n\n" +
-        config.urlSite +
+        env.urlSite +
         "/atualizar-senha-login/" +
         dados.recuperarSenha +
         "\n\nUsuário: " +
@@ -125,14 +117,6 @@ class RecuperarSenhaController {
   }
 
   async update(req, res) {
-    /*await sleep(3000);
-
-        function sleep(ms) {
-            return new Promise((resolve) => {
-                setTimeout(resolve, ms);
-            });
-        } */
-
     const schema = Yup.object().shape({
       _id: Yup.string().required(),
       recuperarSenha: Yup.string().required(),

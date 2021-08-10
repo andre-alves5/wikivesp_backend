@@ -3,6 +3,8 @@ import routes from "./routes.js";
 import cors from "cors";
 import { resolve } from "path";
 
+import "./config/db_connection.js";
+
 class App {
   constructor() {
     this.app = express();

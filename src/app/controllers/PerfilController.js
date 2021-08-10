@@ -2,8 +2,7 @@ import * as Yup from "yup";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
-import config from "../../config/config.js";
-import configAuth from "../../config/auth.js";
+import env from "../../config/env.js";
 
 class PerfilController {
   async show(req, res) {
@@ -13,9 +12,9 @@ class PerfilController {
     )
       .then((user) => {
         if (user.fileName) {
-          var url = config.url + "/files/users/" + user.fileName;
+          var url = env.url + "/files/users/" + user.fileName;
         } else {
-          var url = config.url + "/files/users/icone_usuario.png";
+          var url = env.url + "/files/users/icone_usuario.png";
         }
 
         const {
@@ -45,8 +44,8 @@ class PerfilController {
             url: url,
           },
           url: url,
-          token: jwt.sign({ id: req.userId }, configAuth.secret, {
-            expiresIn: configAuth.expiresIn,
+          token: jwt.sign({ id: req.userId }, env.secret, {
+            expiresIn: env.expiresIn,
           }),
         });
       })
@@ -60,14 +59,6 @@ class PerfilController {
   }
 
   async update(req, res) {
-    /*await sleep(3000);
-
-        function sleep(ms) {
-            return new Promise((resolve) => {
-                setTimeout(resolve, ms);
-            });
-        }*/
-
     const schema = Yup.object().shape({
       name: Yup.string(),
       email: Yup.string().email(),

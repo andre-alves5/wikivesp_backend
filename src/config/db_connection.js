@@ -1,28 +1,25 @@
-import { MongoClient } from "mongodb";
+import mongoose from "mongoose";
+import env from "./env.js";
 
-export const MongoHelper = {
-  async connect(uri) {
-    this.uri = uri;
-    this.client = await MongoClient.connect(uri, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-  },
+class DataBase {
+  constructor() {
+    this.mongoDataBase();
+  }
+  mongoDataBase() {
+    mongoose
+      .connect(env.mongoUrl, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      })
+      .then(() => {
+        console.log("Conexão com MongoDB realizada com sucesso!");
+      })
+      .catch((erro) => {
+        console.log(
+          "Erro: Conexão com MongoDB não foi realizada com sucesso: " + erro
+        );
+      });
+  }
+}
 
-  async disconnect() {
-    await this.client.close();
-    this.client = null;
-  },
-
-  async getCollection(name) {
-    if (!this.client?.isConnected()) {
-      await this.connect(this.uri);
-    }
-    return this.client.db().collection(name);
-  },
-
-  map: (data) => {
-    const { _id, ...rest } = data;
-    return { ...rest, id: _id };
-  },
-};
+export default new DataBase();
