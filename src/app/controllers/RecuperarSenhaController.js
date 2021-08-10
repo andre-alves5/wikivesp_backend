@@ -1,20 +1,11 @@
 import * as Yup from "yup";
 import bcrypt from "bcryptjs";
-import User from "../models/User";
+import User from "../models/User.js";
 import nodemailer from "nodemailer";
-import confing from "../../config/config";
-import configEmail from "../../config/email";
+import config from "../../config/config.js";
 
 class RecuperarSenhaController {
   async show(req, res) {
-    /*await sleep(3000);
-
-        function sleep(ms) {
-            return new Promise((resolve) => {
-                setTimeout(resolve, ms);
-            });
-        }*/
-
     User.findOne({ recuperarSenha: req.params.recuperarSenha }, "_id")
       .then((user) => {
         if (user._id) {
@@ -78,11 +69,11 @@ class RecuperarSenhaController {
         });
 
       var transport = nodemailer.createTransport({
-        host: configEmail.host,
-        port: configEmail.port,
+        host: process.env.EMAIL_HOST,
+        port: process.env.EMAIL_PORT,
         auth: {
-          user: configEmail.user,
-          pass: configEmail.pass,
+          user: process.env.EMAIL_USER,
+          pass: process.env.EMAIL_PASS,
         },
       });
 
@@ -90,7 +81,7 @@ class RecuperarSenhaController {
         "Prezado(a) " +
         userExiste.name +
         "<br><br> Você solicitou uma alteração de senha.<br>Seguindo o link abaixo você poderá alterar sua senha.<br>Para continuar o processo de recuperação de sua senha, clique no link abaixo ou cole o endereço abaixo no seu navegador.<br><br>" +
-        confing.urlSite +
+        config.urlSite +
         "/atualizar-senha-login/" +
         dados.recuperarSenha +
         "<br><br>Usuário: " +
@@ -101,7 +92,7 @@ class RecuperarSenhaController {
         "Prezado(a) " +
         userExiste.name +
         "\n\nVocê solicitou uma alteração de senha.\nSeguindo o link abaixo você poderá alterar sua senha.\nPara continuar o processo de recuperação de sua senha, clique no link abaixo ou cole o endereço abaixo no seu navegador.\n\n" +
-        confing.urlSite +
+        config.urlSite +
         "/atualizar-senha-login/" +
         dados.recuperarSenha +
         "\n\nUsuário: " +
@@ -109,7 +100,7 @@ class RecuperarSenhaController {
         "\n\nSe você não solicitou essa alteração, nenhuma ação é necessária. Sua senha permanecerá a mesma até que você ative este código";
 
       var emailSerEnviado = {
-        from: configEmail.from,
+        from: process.env.EMAIL_FROM,
         to: userExiste.email,
         subject: "Instruções para recuperar a senha",
         html: emailHtml,

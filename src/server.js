@@ -1,7 +1,11 @@
-import app from "./app";
+import env from "./config/env.js";
+import { MongoHelper } from "./config/db_connection.js";
 
-const PORT = process.env.PORT;
-
-app.listen(PORT, () => {
-  console.log(`Servidor iniciado na porta ${PORT}: http://localhost:${PORT}`);
-});
+MongoHelper.connect(env.mongoUrl)
+  .then(async () => {
+    const app = (await import("./app.js")).default;
+    app.listen(env.port, () =>
+      console.log(`Server running at http://localhost:${env.port}`)
+    );
+  })
+  .catch(console.error);

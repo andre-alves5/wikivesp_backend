@@ -1,6 +1,6 @@
 import * as Yup from "yup";
-import config from "../../config/config";
-import ArticleDetails from "../models/ArticleDetails";
+import config from "../../config/config.js";
+import ArticleDetails from "../models/ArticleDetails.js";
 
 class ArticleDetailsController {
   async index(req, res) {

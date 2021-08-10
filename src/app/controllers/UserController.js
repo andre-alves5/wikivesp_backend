@@ -1,17 +1,9 @@
 import * as Yup from "yup";
 import bcrypt from "bcryptjs";
-import User from "../models/User";
+import User from "../models/User.js";
 
 class UserController {
   async index(req, res) {
-    /*await sleep(3000);
-
-        function sleep(ms) {
-            return new Promise((resolve) => {
-                setTimeout(resolve, ms);
-            });
-        }*/
-
     const { page = 1 } = req.query;
     const { limit = 40 } = req.query;
     await User.paginate(

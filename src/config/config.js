@@ -1,4 +1,4 @@
 export default {
-  url: "http://localhost:8080",
-  urlSite: "http://localhost:3000",
+  url: process.env.APP_URL,
+  urlSite: process.env.URL_SITE,
 };

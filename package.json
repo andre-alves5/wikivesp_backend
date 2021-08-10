@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Criar o arquivo package\r npm init -y",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "dev": "nodemon src/server.js",
     "build": "sucrase ./src -d ./outDir --transforms imports",

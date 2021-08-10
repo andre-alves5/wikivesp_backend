@@ -1,12 +1,8 @@
-import ArticleDetails from "../models/ArticleDetails";
+import ArticleDetails from "../models/ArticleDetails.js";
 import fs from "fs";
-import * as aws from "aws-sdk";
-
-const s3 = new aws.S3();
 
 class ArticleDetailsImageController {
   async update(req, res) {
-    console.log(req.file);
     if (!req.file) {
       return res.status(400).json({
         error: true,
@@ -14,18 +10,18 @@ class ArticleDetailsImageController {
         message: "Error: Selecione uma imagem válida JPEG ou PNG!",
       });
     }
-    if(process.env.STORAGE_TYPE === "s3") {
+    if (process.env.STORAGE_TYPE === "s3") {
       var imageData = {
         originalName: req.file.originalname,
         key: req.file.key,
-        url: req.file.location
+        url: req.file.location,
       };
     } else {
-        var url = req.file.destination + "/" + req.file.filename;
-       var imageData = {
+      var url = req.file.destination + "/" + req.file.filename;
+      var imageData = {
         originalName: req.file.originalname,
         key: req.file.filename,
-        url
+        url,
       };
     }
 

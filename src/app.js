@@ -1,10 +1,7 @@
 import express from "express";
-import routes from "./routes";
+import routes from "./routes.js";
 import cors from "cors";
-import path from "path";
-require("dotenv").config();
-
-import "./config/db_connection";
+import { resolve } from "path";
 
 class App {
   constructor() {
@@ -14,10 +11,7 @@ class App {
   }
   middlewares() {
     this.app.use(express.json());
-    this.app.use(
-      "/files",
-      express.static(path.resolve(__dirname, "..", "tmp", "uploads"))
-    );
+    this.app.use("/files", express.static(resolve("../tmp/uploads")));
 
     this.app.use((req, res, next) => {
       res.header("Access-Control-Allow-Origin", "*");

@@ -1,9 +1,9 @@
 import * as Yup from "yup";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import User from "../models/User";
-import config from "../../config/config";
-import configAuth from "../../config/auth";
+import User from "../models/User.js";
+import config from "../../config/config.js";
+import configAuth from "../../config/auth.js";
 
 class PerfilController {
   async show(req, res) {

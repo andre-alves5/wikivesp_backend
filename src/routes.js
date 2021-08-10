@@ -1,19 +1,19 @@
 import { Router } from "express";
 import multer from "multer";
-import multerUpImgUsers from "./app/middlewares/uploadImgUser";
-import multerUpArticleImage from "./app/middlewares/uploadArticleImage";
+import multerUpImgUsers from "./app/middlewares/uploadImgUser.js";
+import multerUpArticleImage from "./app/middlewares/uploadArticleImage.js";
 
-import LoginController from "./app/controllers/LoginController";
-import RecuperarSenhaController from "./app/controllers/RecuperarSenhaController";
-import UserController from "./app/controllers/UserController";
-import PerfilController from "./app/controllers/PerfilController";
-import PerfilImagemController from "./app/controllers/PerfilImagemController";
+import LoginController from "./app/controllers/LoginController.js";
+import RecuperarSenhaController from "./app/controllers/RecuperarSenhaController.js";
+import UserController from "./app/controllers/UserController.js";
+import PerfilController from "./app/controllers/PerfilController.js";
+import PerfilImagemController from "./app/controllers/PerfilImagemController.js";
 
-import ArticlesController from "./app/controllers/ArticlesController";
-import ArticleDetailsController from "./app/controllers/ArticleDetailsController";
-import ArticleDetailsImageController from "./app/controllers/ArticleDetailsImageController";
+import ArticlesController from "./app/controllers/ArticlesController.js";
+import ArticleDetailsController from "./app/controllers/ArticleDetailsController.js";
+import ArticleDetailsImageController from "./app/controllers/ArticleDetailsImageController.js";
 
-import authMiddleware from "./app/middlewares/auth";
+import authMiddleware from "./app/middlewares/auth.js";
 
 const routes = new Router();
 const uploadImgUser = multer(multerUpImgUsers);

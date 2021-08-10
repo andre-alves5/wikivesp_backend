@@ -1,18 +1,10 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import User from "../models/User";
-import configAuth from "../../config/auth";
+import User from "../models/User.js";
+import configAuth from "../../config/auth.js";
 
 class LoginController {
   async store(req, res) {
-    /*await sleep(3000);
-
-        function sleep(ms) {
-            return new Promise((resolve) => {
-                setTimeout(resolve, ms);
-            });
-        }*/
-
     const { email, password } = req.body;
 
     const userExiste = await User.findOne({ email: email });

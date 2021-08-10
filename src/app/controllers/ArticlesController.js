@@ -1,5 +1,5 @@
 import * as Yup from "yup";
-import Articles from "../models/Articles";
+import Articles from "../models/Articles.js";
 
 class ArticlesController {
   async index(req, res) {
