@@ -12,6 +12,9 @@ const expiresIn = process.env.AUTH_EXPIRES_IN;
 const url = process.env.APP_URL;
 const urlSite = process.env.URL_SITE;
 
+const storage = process.env.STORAGE_TYPE;
+const bucket = process.env.BUCKET_NAME;
+
 export default {
   mongoUrl,
   port,
@@ -20,4 +23,6 @@ export default {
   expiresIn,
   url,
   urlSite,
+  storage,
+  bucket
 };

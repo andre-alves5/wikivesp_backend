@@ -1,7 +1,6 @@
 import { Router } from "express";
 import multer from "multer";
-import multerUpImgUsers from "./app/middlewares/uploadImgUser.js";
-import multerUpArticleImage from "./app/middlewares/uploadArticleImage.js";
+import multerUploadImage from "./app/middlewares/uploadImage.js";
 
 import LoginController from "./app/controllers/LoginController.js";
 import RecuperarSenhaController from "./app/controllers/RecuperarSenhaController.js";
@@ -16,8 +15,7 @@ import ArticleDetailsImageController from "./app/controllers/ArticleDetailsImage
 import authMiddleware from "./app/middlewares/auth.js";
 
 const routes = new Router();
-const uploadImgUser = multer(multerUpImgUsers);
-const uploadArticleImage = multer(multerUpArticleImage);
+const uploadImage = multer(multerUploadImage);
 
 routes.post("/login", LoginController.store);
 
@@ -30,9 +28,9 @@ routes.delete("/users/:id", authMiddleware, UserController.delete);
 routes.get("/perfil", authMiddleware, PerfilController.show);
 routes.put("/perfil", authMiddleware, PerfilController.update);
 routes.put(
-  "/perfil-img",
+  "/perfil-img/:dest/:id",
   authMiddleware,
-  uploadImgUser.single("file"),
+  uploadImage.single("file"),
   PerfilImagemController.update
 );
 
@@ -66,9 +64,9 @@ routes.delete(
 );
 
 routes.put(
-  "/articleimage/:id",
+  "/articleimage/:dest/:id",
   authMiddleware,
-  uploadArticleImage.single("file"),
+  uploadImage.single("file"),
   ArticleDetailsImageController.update
 );
 
