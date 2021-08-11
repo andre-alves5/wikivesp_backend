@@ -7,14 +7,12 @@
   "scripts": {
     "dev": "nodemon src/server.js",
     "build": "sucrase ./src -d ./outDir --transforms imports",
-    "start": "node src/server.js",
-    "style:check": "prettier --check 'src/**/*.js'",
-    "style:fix": "prettier --write 'src/**/*.js'"
+    "start": "node src/server.js"
   },
   "author": "Andre Alves",
   "license": "ISC",
   "dependencies": {
-    "aws-sdk": "^2.964.0",
+    "azure-storage": "^2.10.4",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
@@ -24,13 +22,11 @@
     "mongoose": "^5.13.6",
     "mongoose-paginate-v2": "^1.4.1",
     "multer": "^1.4.3",
-    "multer-s3": "^2.9.0",
     "nodemailer": "^6.6.3",
     "yup": "^0.32.9"
   },
   "devDependencies": {
     "nodemon": "^2.0.12",
-    "prettier": "^2.3.2",
     "sucrase": "^3.20.1"
   },
   "engines": {

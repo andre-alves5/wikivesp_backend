@@ -19,6 +19,8 @@ const routes = new Router();
 const uploadImgUser = multer(multerUpImgUsers);
 const uploadArticleImage = multer(multerUpArticleImage);
 
+routes.post("/login", LoginController.store);
+
 routes.get("/users", UserController.index);
 routes.get("/users/:id", UserController.show);
 routes.post("/users", UserController.store);
@@ -33,8 +35,6 @@ routes.put(
   uploadImgUser.single("file"),
   PerfilImagemController.update
 );
-
-routes.post("/login", LoginController.store);
 
 routes.post("/passwordrecovery", RecuperarSenhaController.store);
 routes.get("/passwordrecovery/:validatekey", RecuperarSenhaController.show);
